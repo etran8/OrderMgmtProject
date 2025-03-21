@@ -22,7 +22,7 @@ This project develops a RESTFul Web Service that publishes the following API:
 To run this project, you will need to do the following:
 1. Download all these codes to your local folder and open them up in PyCharm.
 2. If the code is compiled without any errors then you should see this URL http://127.0.0.1:8000/
-3. You may first need to go to http://127.0.0.1:8000/admin/ to sign in with User ID: eric and password: eric.
+3. You may first need to create a user/password login by: python manage.py createsuperuser or go to http://127.0.0.1:8000/admin/ to sign in with User ID: eric and password: eric.
    ![image](https://github.com/user-attachments/assets/8eb5227e-343c-4560-a54c-79eeee0fd843)
 4. You then go back to the home page: http://127.0.0.1:8000/home
 5. You then can click on the URL links on the screen or manually enter the below URLs on the browser.
