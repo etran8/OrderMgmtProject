@@ -25,7 +25,7 @@ To run this project, you will need to do the following:
 3. You may first need to create a user/password login by: python manage.py createsuperuser or go to http://127.0.0.1:8000/admin/ to sign in with User ID: eric and password: eric.
    ![image](https://github.com/user-attachments/assets/8eb5227e-343c-4560-a54c-79eeee0fd843)
 4. You then go back to the home page: http://127.0.0.1:8000/home
-5. You then can click on the URL links on the screen or manually enter the below URLs on the browser.
+5. You then can click on the URL links on the screen or manually enter the below URLs on the browser to edit data.
 6. http://127.0.0.1:8000/AddCustomer/
 7. http://127.0.0.1:8000/GetCustomers/
 8. http://127.0.0.1:8000/UpdateCustomer/1  (where 1 is a customer id)
