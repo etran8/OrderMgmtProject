@@ -1,0 +1,37 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Customer </title>
+    <h2> Create a new Customer </h2>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+     <form action="" method="post">
+     <table class="table">
+         <tr><th><label for="id_firstName">Enter First Name:</label></th><td><input type="text" name="firstName" maxlength="25" required id="id_firstName" value="{{customer.first_name}}"></td></tr>
+<tr><th><label for="id_lastName">Enter Last Name:</label></th><td><input type="text" name="lastName" maxlength="25" required id="id_lastName" value='{{customer.last_name}}'></td></tr>
+<tr><th><label for="id_preferred_customer">Prime Customer :</label></th><td><select name="preferred_customer" id="id_preferred_customer" >
+   {% if customer.special_customer == "Y" %}
+  <option value="Y" selected>Yes</option>
+    {% else %}
+    <option value="Y">Yes</option>
+   {% endif %}
+    {% if customer.special_customer == "N" %}
+    <option value="N" selected>No</option>
+    {% else %}
+    <option value="N">No</option>
+    {% endif %}
+
+</select></td></tr>
+<tr><th><label for="id_customer_since">Created Date:</label></th><td><input type="text" name="customer_since" id="id_customer_since" value="{{customer.created_date|date:'Y-m-d'}}"></td></tr>
+         <tr>
+             <td>&nbsp;</td>
+             <td><input type="submit" value="Submit"></td>
+         </tr>
+     </table>
+         {% csrf_token %}
+     </form>
+
+ 
+</html>

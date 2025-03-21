@@ -1,0 +1,97 @@
+{% load static %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer and Contact Details</title>
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}">
+</head>
+<body>
+    <h4> Customer Details </h4>
+    <div class="table-responsive">
+    <table class="table table-hover table-bordered table-striped">
+        <style>
+            .table td{
+            font-size : 24px
+        </style>
+        <tr> <td><a href="{%url 'create_customer' %}"> Add Customer </a></td></tr>
+            {% for customer in customers %}
+            <tr>
+                <td> {{customer.first_name}}</td>
+                <td> {{customer.last_name}} </td>
+                <td> {{customer.created_date}}</td>
+                <td><a href="{%url 'create_model_contact' customer.id %}">Create Contact</a> </td>
+                <td><a href="{%url 'edit_customer' customer.id %}"> Edit Customer </a></td>
+            </tr>
+            {% endfor %}
+
+    </table>
+        <h4> Contact Details </h4>
+    <table class="table table-hover table-bordered table-responsive">
+
+        {% comment %}
+          The code below will iterate over the contact list and display them
+        {% endcomment %}
+
+    {% for contact in page_obj %}
+        <tr>
+
+            <td>
+                {{contact.cell}}
+            </td>
+            <td>
+                {{contact.email}}
+            </td>
+            <td>
+                {{contact.street}}
+            </td>
+            <td>
+                {{contact.city}}
+            </td>
+            <td>
+                {{contact.state}}
+            </td>
+            <td>
+                {{contact.zip}}
+            </td>
+            <td>
+                {{contact.customer}}
+            </td>
+
+            {% if perms.OrderMgmtApp.change_contact %}
+            <td><a href="{%url 'edit_model_contact' contact.id %}"> Edit Contact </a></td>
+            {% endif %}
+            {% if perms.OrderMgmtApp.view_contact %}
+            <td><a href="{%url 'view_contact' contact.id %}"> View Contact </a></td>
+            {% endif %}
+
+            {% if perms.OrderMgmtApp.delete_contact %}
+            <td><a href="{%url 'delete_contact' contact.id %}"> Delete Contact </a></td>
+            {% endif %}
+
+        </tr>
+    {% empty %}
+    <li>Sorry, There are no Contacts in the database </li>
+
+    {% endfor %}
+                <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+    </table>
+    </div>
+</body>
+</html>

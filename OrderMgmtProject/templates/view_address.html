@@ -1,0 +1,43 @@
+{% load static %} <!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Contact</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+
+{% block title %}View Contact {% endblock title %}
+
+ {% block content %}
+
+     <table class="table">
+         <tr>
+             <td>E-mail</td>
+             <td>{{contact.email}}</td>
+         </tr>
+         <tr>
+             <td>Cell Phone</td>
+             <td>{{contact.cell}}</td>
+         </tr>
+         <tr>
+             <td>Address </td>
+             <td>{{contact.street}}</td>
+         </tr>
+         <tr>
+             <td>city </td>
+             <td>{{contact.city}}</td>
+         </tr>
+         <tr>
+             <td>State </td>
+             <td>{{contact.state}}</td>
+         </tr>
+         <tr>
+             <td>Zip </td>
+             <td>{{contact.zip}}</td>
+         </tr>
+         <tr>
+             <td colspan="2"> <a href="{%url 'index' %}"> Home </a></td>
+         </tr>
+     </table>
+
+ {% endblock content %}

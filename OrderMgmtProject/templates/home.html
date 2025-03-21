@@ -1,0 +1,113 @@
+{% load static %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer and Address Details</title>
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}">
+</head>
+<body>
+            <h5> logged in user = {{ user.username }}</h5>
+            <h5> <a href="{% url 'logout' %}"> Logout </a></h5>
+    {% if user.is_authenticated %}
+    <h4> Customer Details </h4>
+    <div class="table-responsive">
+    <table class="table table-hover table-bordered table-striped">
+        <style>
+            .table td{
+            font-size : 24px
+        </style>
+        <tr> <td><a href="{%url 'add_customer_json' %}"> Add Customer </a></td></tr>
+            {% for customer in customers %}
+            <tr>
+                <td> {{customer.first_name}}</td>
+                <td> {{customer.last_name}} </td>
+                <td> {{customer.customer_since}}</td>
+                <td> {{customer.prime_customer}}</td>
+                <td><a href="{%url 'add_address_json' customer.id %}">Create Address</a> </td>
+                <td><a href="{%url 'add_order_json' customer.id %}">Create Order</a> </td>
+                <td><a href="{%url 'update_customer_json' customer.id %}"> Edit Customer </a></td>
+            </tr>
+            {% endfor %}
+
+    </table>
+    <h4> Address Details </h4>
+    <table class="table table-hover table-bordered table-responsive">
+
+        {% comment %}
+          The code below will iterate over the contact list and display them
+        {% endcomment %}
+
+    {% for address in page_obj %}
+        <tr>
+            <td>
+                {{address.street}}
+            </td>
+            <td>
+                {{address.city}}
+            </td>
+            <td>
+                {{address.state}}
+            </td>
+            <td>
+                {{address.zipcode}}
+            </td>
+            <td>
+                {{address.customer}}
+            </td>
+
+            {% if perms.OrderMgmtApp.change_address %}
+            <td><a href="{%url 'update_address_json' address.id %}"> Edit Address </a></td>
+            {% endif %}
+            {% if perms.OrderMgmtApp.view_address %}
+            <td><a href="{%url 'get_addresses_json' address.id %}"> View Address </a></td>
+            {% endif %}
+
+        </tr>
+    {% empty %}
+    <li>Sorry, There are no Addresses in the database </li>
+
+    {% endfor %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </table>
+    <h4> Order Details </h4>
+    <table class="table table-hover table-bordered table-responsive">
+
+        {% comment %}
+          The code below will iterate over the contact list and display them
+        {% endcomment %}
+        {% for order in orders %}
+        <tr>
+            <td> {{order.order_number}}</td>
+            <td> {{order.order_date}} </td>
+            <td> {{order.order_total}}</td>
+            <td> {{order.payment_type}}</td>
+            <td> {{order.account_number}}</td>
+            <td> {{order.expiration_date}}</td>
+            <td><a href="{%url 'add_product_json' order.id %}">Create Product</a> </td>
+            <td><a href="{%url 'get_products_json' order.id %}">View Products</a> </td>
+            <td><a href="{%url 'update_order_json' order.id %}">Edit Order </a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% else %}
+<h5> <a href="{% url 'login' %}"> Login </a></h5>
+{% endif %}
+</body>
+</html>
